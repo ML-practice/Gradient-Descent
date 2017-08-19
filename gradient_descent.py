@@ -29,19 +29,17 @@ def gradient_descent(points, num_iterations, learning_rate):
     m = 0
     b = 0
     for i in range(num_iterations):
-        m_delta = 0
-        b_delta = 0
         for j in range(len(points)):
             x = points[j, 0]
             y = points[j, 1]
 
             y_predict = predict(x, m, b)
-            error = y - y_predict
+            error = y- y_predict
 
-            m_delta += (2/len(points)) * error * x
-            b_delta += (2/len(points)) * error
-        m += m_delta * learning_rate
-        b += b_delta * learning_rate
+            m_delta = error * x
+            b_delta = error
+            m += m_delta * learning_rate
+            b += b_delta * learning_rate
     return [m, b]
 
 
