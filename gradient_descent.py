@@ -1,4 +1,24 @@
-from numpy import genfromtxt as read_data
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def plot(slope, intercept, points):
+
+    """Plotting the points"""
+    x = list()
+    y = list()
+    for p in points:
+        x.append(p[0])
+        y.append(p[1])
+    plt.scatter(x, y)
+
+    """Plotting the line"""
+    x_min, x_max, y_min, y_max = plt.axis()
+    x_values = [x_min, x_max]
+    y_values = [predict(x, slope, intercept) for x in x_values]
+    plt.plot(x_values, y_values, 'r')
+
+    plt.show()
 
 
 def predict(x, m, b):
@@ -26,10 +46,9 @@ def gradient_descent(points, num_iterations, learning_rate):
 
 
 def main():
-    points = read_data("data.csv", delimiter=',')
+    points = np.genfromtxt("data.csv", delimiter=',')
     (m, b) = gradient_descent(points, 1000, 0.0003)
-    print("Line generated is y = {}x + {}".format(m, b))
-    print("Prediction for 32 is {}".format(predict(32, m, b)))
+    plot(m, b, points)
 
 if __name__ == '__main__':
     main()
